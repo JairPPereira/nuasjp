@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 
 # Fazer uma solicitação à página da web
-url = 'https://www.ligadasnovinhas.com/casada-piranha-de-olhos-azuis-pelada/'
+url = 'https://www.ligadasnovinhas.com/20-imagens-de-buceta-rosa/'
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 
