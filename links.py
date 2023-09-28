@@ -1,15 +1,20 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://embedder.net/lib/movies?&sort_by=imdb_rate"
+url = "https://embedder.net/lib/movies?page=7"
 response = requests.get(url)
-soup = BeautifulSoup(response.text, "html.parser")
+soup = BeautifulSoup(response.content, "html.parser")
 
-movies = soup.find_all("div", class_="d-block")
+for film_poster in soup.find_all("div", class_="film-poster"):
+    img = film_poster.find("img")
+    title = img["alt"]
+    image_url = img["data-src"]
+    link = film_poster.find("a", class_="film-poster-ahref")["href"]
 
-for movie in movies:
-    link_element = movie.find("a", class_="bop-name")
-    if link_element is not None:
-        link = link_element.get("href")
-        name = link_element.text.strip()
-        print(f'<button onclick="openMovie(\'{name}\', \'{link}\')">{name}</button>')
+    print('<div class="col-sm-2 col-xs-4"><div class="media-box">')
+    print(f'   <img src="{image_url}" style="max-height: 250px; min-height: 190px;" class="m-t-10 b-radius-5 img-responsive center-block" alt="{title}" /><center>')
+    print(f'   <button class="btn btn-primary" onclick="openMovie(\'{title}\', \'{link}\')">Assistir</button></center>')
+    print('</div></div>')
+
+
+
